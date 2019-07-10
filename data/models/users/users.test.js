@@ -19,8 +19,8 @@ const mockUsers = [
 
 describe('USERS MODEL', () => {
     
-    beforeEach(() => {
-        return db('users').truncate();
+    beforeEach(async () => {
+        return await db('users').truncate();
     });
 
     describe('getUser()', () => {
@@ -52,7 +52,6 @@ describe('USERS MODEL', () => {
             expect(user1.length).toBe(0);
             expect(user2.length).toBe(0);
         });
-
     });
 
     describe('addUser()', () => {
@@ -74,6 +73,31 @@ describe('USERS MODEL', () => {
 
             expect(failedAdd).toEqual({ error: 'No User Info Found' });
         });
-
     });
+
+    describe('editUser()', () => {
+
+        it('should change user fields', () => {
+            Users.addUser(mockUsers[0]);
+
+            const succesfulEdit = Users.editUser(1, { password: 'password1' });
+            const editedUser = Users.getUser(1);
+    
+            expect(succesfulEdit).toBe(1);
+            expect(editedUser[0].password).toBe('password1');
+        });
+
+        it('should return an error message if field not found', () => {
+            const failedEdit = Users.editUser(1, { something: 'password1' });
+
+            expect(failedEdit).toEqual({ error: 'Field to Edit Not Found' });
+        });
+
+        it('should return an error message if no changes found', () => {
+            const failedEdit = Users.editUser(1, { password: undefined });
+
+            expect(failedEdit).toEqual({ error: 'No Change Found' });
+        });
+    });
+    
 });
