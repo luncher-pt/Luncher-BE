@@ -106,4 +106,50 @@ describe('SCHOOLS ROUTES', () => {
             expect(res.status).toBe(404);
         });
     });
+
+    describe('PUT /schools/:id', () => {
+
+        it('should return status 200 if successful', async () => {
+            const res = await request(server)
+                                .put('/schools/1')
+                                .send({
+                                    password: 'password123'
+                                });
+
+            expect(res.status).toBe(200);
+        });
+
+        it('should return status 304 if update fails', async () => {
+            const res = await request(server)
+                                .put('/schools/1')
+                                .send({
+                                    something: 'password123'
+                                });
+
+            expect(res.status).toBe(304);
+        });
+
+        it('should return status 404 if incorrect id', async () => {
+            const res = await request(server)
+                                .put('/schools/100')
+                                .send({
+                                    password: 'password123'
+                                });
+
+            expect(res.status).toBe(404);
+        });
+    });
+
+    describe('DELETE /schools/:id', () => {
+        
+        it('should return status 200 if successful', async () => {
+            const res = await request(server).delete('/schools/1');
+
+            expect(res.status).toBe(200);
+        });
+
+        it('should return status 404 if id is inccorect', async () => {
+            const res = await request(server).delete('/schools/100');
+        });
+    });
 });
