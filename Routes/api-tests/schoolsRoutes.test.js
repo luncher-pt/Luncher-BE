@@ -113,7 +113,7 @@ describe('SCHOOLS ROUTES', () => {
             const res = await request(server)
                                 .put('/schools/1')
                                 .send({
-                                    password: 'password123'
+                                    address: 'password123'
                                 });
 
             expect(res.status).toBe(200);
@@ -133,7 +133,7 @@ describe('SCHOOLS ROUTES', () => {
             const res = await request(server)
                                 .put('/schools/100')
                                 .send({
-                                    password: 'password123'
+                                    address: 'password123'
                                 });
 
             expect(res.status).toBe(404);
