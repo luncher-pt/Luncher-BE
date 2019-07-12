@@ -84,14 +84,14 @@ describe('SCHOOLS MODEL', () => {
 
         it('should add the school to the database', async () => {
             await Schools.addSchool(mockSchools[0]);
-
-            const school = Schools.getAllSchools();
-
+            
+            const school = await Schools.getAllSchools();
+          
             expect(school[0].name).toBe('High School');
         });
 
         it('should return an error message if a field is missing', async () => {
-            const failedAdd = Schools.addSchool(mockSchools[1]);
+            const failedAdd = await Schools.addSchool(mockSchools[1]);
 
             expect(failedAdd).toEqual({ error: 'Missing Field' });
         });
