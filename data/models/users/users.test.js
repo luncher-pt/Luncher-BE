@@ -26,6 +26,8 @@ describe('USERS MODEL', () => {
     describe('getUser()', () => {
 
         it('should return an array containing a single user', async () => {
+            await Users.addUser(mockUsers[0]);
+
             const user = await Users.getUser(1);
 
             expect(Array.isArray(user)).toBe(true);
@@ -33,9 +35,11 @@ describe('USERS MODEL', () => {
         });
 
         it('should return a user with the corresponding id as the parameter', async () => {
-            const user = await Users.getUser(3);
+            await Users.addUser(mockUsers[0])
+            
+            const user = await Users.getUser(1);
 
-            expect(user[0].id).toBe(3);
+            expect(user[0].id).toBe(1);
         });
 
         it('should return an empty array if no users found with id', async () => {
