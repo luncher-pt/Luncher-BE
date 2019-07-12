@@ -17,7 +17,7 @@ server.use(
     express.json(),
     helmet(),
     cors(),
-    logger('dev')
+    
 );
 
 //Routes Usage

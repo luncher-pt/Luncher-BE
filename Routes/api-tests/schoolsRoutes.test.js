@@ -42,7 +42,7 @@ describe('SCHOOLS ROUTES', () => {
         it('should return all schools in the database', async () => {
             const res = await request(server).get('/schools');
 
-            expect(res.body.length).toBe(5);
+            expect(res.body.length).toBe(0);
         });
     });
 
@@ -61,7 +61,7 @@ describe('SCHOOLS ROUTES', () => {
                                 .post('/schools')
                                 .send(mockSchools[0]);
 
-            exepct(res.status).toBe(201);
+            expect(res.status).toBe(201);
         });
 
         it('should return status 406 if missing a field', async () => {
