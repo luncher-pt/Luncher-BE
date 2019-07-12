@@ -63,7 +63,12 @@ describe('USERS MODEL', () => {
         it('should add user to database', async () => {
             const succesfulAdd = await Users.addUser(mockUsers[0]);
 
-            expect(succesfulAdd).toBe(1);
+            const userMatch = { ...mockUsers[0] };
+            
+            userMatch.id = 1;
+            userMatch.admin = 1;
+
+            expect(succesfulAdd[0]).toEqual(userMatch);
         });
 
         it('should return an error message if require field is missing', async () => {
