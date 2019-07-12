@@ -118,11 +118,11 @@ describe('USERS MODEL', () => {
     describe('deleteUser()', () => {
 
         it('should remove the user from the database', async () => {
-            await Users.deleteUser(1);
+            await Users.addUser(mockUsers[0]);
+            
+            const deleted = await Users.deleteUser(1);
 
-            const users = await db('users');
-
-            expect(users[0].id).toBe(2);
+            expect(deleted).toBe(1);
         });
 
         it('should return an error message if no user matches id', async () => {

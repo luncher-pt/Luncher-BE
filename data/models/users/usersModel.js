@@ -59,8 +59,6 @@ const editUser = async (id, update) => {
         }
     });
 
-    console.log(failedKeys)
-
     //Determinate if update is valid
     if(failedUpdate[0]) {
 
@@ -77,8 +75,15 @@ const editUser = async (id, update) => {
     }
 }
 
+const deleteUser = async id => {
+    const deleted = await db('users').where({ id }).del();
+
+    return deleted ? deleted : { error: 'No User Found' }
+}
+
 module.exports = {
     getUser,
     addUser,
-    editUser
+    editUser,
+    deleteUser
 }
