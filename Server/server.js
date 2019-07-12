@@ -4,17 +4,24 @@ require('dotenv').config();
 const express = require('express');
 const server = express();
 
-//Middleware
+//Middleware Import
 const helmet = require('helmet');
 const logger = require('morgan');
 const cors = require('cors');
 
+//Routes Import
+const routes = require('../Routes/api');
+
+//Middleware Usage
 server.use(
     express.json(),
     helmet(),
     cors(),
     logger('dev')
 );
+
+//Routes Usage
+server.use('/', routes);
 
 //Root Route
 server.get('/', (req, res) => {

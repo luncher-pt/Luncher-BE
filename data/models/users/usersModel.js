@@ -18,7 +18,7 @@ const userTemplate = {
 }
 
 const getUser = async id => {
-    if(typeof id !== 'number' || undefined) {
+    if(typeof Number(id) !== 'number' || id === undefined) {
         return [];
     }
 

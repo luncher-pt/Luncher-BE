@@ -3,6 +3,22 @@ const request = require('supertest');
 const server = require('../../Server/server');
 const db = require('../../data/dbConfig');
 
+const mockUser = {
+    name: 'Jean-Luc Picard',
+    email: 'enterprise@gmail.com',
+    password: 'password',
+    admin: true,
+    donations: 100
+}
+
+beforeEach(async () => {
+    return await db('users').insert(mockUser);
+});
+
+afterEach(async () => {
+    return await db('users').truncate();
+});
+
 describe('USER ROUTES', () => {
    describe('GET /user/:id', () => {
 
@@ -28,7 +44,7 @@ describe('USER ROUTES', () => {
                                     password: 'password123'
                                 });
 
-            expect(res.staus).toBe(200);
+            expect(res.status).toBe(200);
         });
 
         it('should return status 304 if field is missing or incorrect', async () => {
