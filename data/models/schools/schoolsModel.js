@@ -29,6 +29,37 @@ const addSchool = async school => {
     return id;
 }
 
+const editSchool = async (id, update) => {
+    //Determine if keys and properties are correct
+    const testKeys = Object.keys(schoolTemplate);
+    const updateKeys = Object.keys(update);
+    const updateVals = Object.values(update);
+
+    const failedKeys = updateKeys.map(key => {
+        if(!testKeys.includes(key)) {
+            return { error: "Incorrect Fields" }
+        }
+    });
+
+    const failedUpdate = updateVals.map(value => {
+        if(value === undefined) {
+            return { error: "Incorrect Fields" }
+        }
+    });
+
+    if(failedUpdate[0] || failedKeys[0]) return failedUpdate[0] || failedKeys[0]
+
+    //Apply Update if School is found
+    await db('schools').where({ id }).update(update);
+
+    //Determine if school was found
+    const result = await db('schools').where({ id });
+
+    if(result.length > 0) return result;
+
+    return { error: 'No School Found with ID' }     
+}
+
 const deleteSchool = async id => {
     const deleted = await db('schools').where({ id }).del();
 
@@ -40,5 +71,6 @@ module.exports = {
     getAllSchools,
     getSchoolById,
     addSchool,
+    editSchool,
     deleteSchool
 }

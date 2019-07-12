@@ -100,6 +100,8 @@ describe('SCHOOLS MODEL', () => {
     describe('editSchool()', () => {
 
         it('should update a school\'s fields', async () => {
+            await Schools.addSchool(mockSchools[0]);
+
             await Schools.editSchool(1, { name: 'Middle School' });
 
             const school = await Schools.getSchoolById(1);
@@ -110,7 +112,7 @@ describe('SCHOOLS MODEL', () => {
         it('should return an error message if no school found', async () => {
             const failedEdit = await Schools.editSchool(10, { name: 'Middle School' });
 
-            expect(failedEdit).toBe({ error: 'No School Found with ID' });
+            expect(failedEdit).toEqual({ error: 'No School Found with ID' });
         });
 
         it('should return an error message if incorrect field is passed', async () => {
