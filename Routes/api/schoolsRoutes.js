@@ -14,7 +14,6 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     Schools.addSchool(req.body)
             .then(school => {
-                console.log('SCHOOL', school);
                 if(school.error) {
                     res.status(406).json({ error: 'Missing Field' });
                 } else {
@@ -22,12 +21,27 @@ router.post('/', (req, res) => {
                 }
             })
             .catch(err => {
-                console.log('ERRROOORRR', err);
                 if(err.errno === 19 || err.code === 'SQLITE_CONSTRAINT') {
                     res.status(400).json({ error: err, message: 'Duplicate Entry' });
                 } else {
                     res.status(500).json(err);
                 }
+            });
+});
+
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Schools.getSchoolById(id)
+            .then(school => {
+                if(school.error) {
+                    res.status(404).json({ error: 'No School Found'});
+                } else {
+                    res.status(200).json(school);
+                }
+            })
+            .catch(err => {
+                res.status(500).json(err);
             });
 });
 
