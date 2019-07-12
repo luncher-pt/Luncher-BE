@@ -44,7 +44,7 @@ describe('SCHOOLS MODEL', () => {
             const schools = await Schools.getAllSchools();
 
             expect(schools.length).toBe(0);
-            expect(Array.isArray(shools));
+            expect(Array.isArray(schools));
         });
     });
 
@@ -72,7 +72,7 @@ describe('SCHOOLS MODEL', () => {
 
     describe('addSchool()', () => {
 
-        it('should return 1 if the school is successfully added', async () => {
+        it('should return the id if the school is successfully added', async () => {
             const successfulAdd = await Schools.addSchool(mockSchools[0]);
 
             expect(successfulAdd).toBe(1);
@@ -81,7 +81,7 @@ describe('SCHOOLS MODEL', () => {
         it('should add the school to the database', async () => {
             await Schools.addSchool(mockSchools[0]);
 
-            const school = Schools.getSchoolById(1);
+            const school = Schools.getAllSchools();
 
             expect(school[0].name).toBe('High School');
         });
