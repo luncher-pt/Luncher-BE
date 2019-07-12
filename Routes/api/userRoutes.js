@@ -20,4 +20,19 @@ router.get('/:id', (req, res) => {
     }
 });
 
+router.put('/:id', (req, res) => {
+   const { id } = req.params;
+   const edit = req.body;
+   
+   if(isNaN(Number(id))) {
+       res.status(404).json({ error: 'No User Found With ID' });
+   } else {
+       Users.editUser(id, edit)
+                .then(user => {
+                    user.error ? res.status(304).json({ error: 'Field Inccorect' })
+                               : res.status(200).json(user);             
+                });
+   }
+});
+
 module.exports = router;
