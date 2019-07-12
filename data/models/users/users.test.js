@@ -92,7 +92,13 @@ describe('USERS MODEL', () => {
             const succesfulEdit = await Users.editUser(1, { password: 'password1' });
             const editedUser = await Users.getUser(1);
     
-            expect(succesfulEdit).toBe(1);
+            const userMatch = { ...mockUsers[0] };
+            
+            userMatch.id = 1;
+            userMatch.admin = 1;
+            userMatch.password = 'password1';
+
+            expect(succesfulEdit[0]).toEqual(userMatch);
             expect(editedUser[0].password).toBe('password1');
         });
 
