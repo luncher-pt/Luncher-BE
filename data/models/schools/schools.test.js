@@ -51,6 +51,8 @@ describe('SCHOOLS MODEL', () => {
     describe('getSchoolById()', () => {
 
         it('should return an array with a single shool', async () => {
+            await Schools.addSchool(mockSchools[0]);
+            
             const school = await Schools.getSchoolById(1);
 
             expect(Array.isArray(school)).toBe(true);
@@ -58,6 +60,8 @@ describe('SCHOOLS MODEL', () => {
         });
 
         it('should return the specified school', async () => {
+            await Schools.addSchool(mockSchools[0]);
+
             const school = await Schools.getSchoolById(1);
 
             expect(school[0].id).toBe(1);
