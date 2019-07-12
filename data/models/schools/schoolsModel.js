@@ -29,8 +29,16 @@ const addSchool = async school => {
     return id;
 }
 
+const deleteSchool = async id => {
+    const deleted = await db('schools').where({ id }).del();
+
+    return deleted ? deleted : { error: 'No School Found By ID' }
+}
+
+
 module.exports = {
     getAllSchools,
     getSchoolById,
     addSchool,
+    deleteSchool
 }

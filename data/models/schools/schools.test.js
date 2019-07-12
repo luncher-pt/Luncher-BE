@@ -102,7 +102,7 @@ describe('SCHOOLS MODEL', () => {
         it('should update a school\'s fields', async () => {
             await Schools.editSchool(1, { name: 'Middle School' });
 
-            const school = Schools.getSchoolById(1);
+            const school = await Schools.getSchoolById(1);
 
             expect(school[0].name).toBe('Middle School');
         });
@@ -123,11 +123,13 @@ describe('SCHOOLS MODEL', () => {
     describe('deleteSchool()', () => {
         
         it('should remove a school from the database', async () => {
+            await Schools.addSchool(mockSchools[0]);
+
             await Schools.deleteSchool(1);
 
-            const schools = Schools.getAllSchools();
+            const schools = await Schools.getAllSchools();
 
-            expect(schools[0].id).toBe(2);
+            expect(schools.length).toBe(0);
         });
 
         it('should return an error message if no school found', async () => {
