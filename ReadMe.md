@@ -1,3 +1,5 @@
+INITIAL COMMIT TO deployment_v2
+
     const schoolTemplate = {
         name: 'High School',
         address: 'Some Street',
