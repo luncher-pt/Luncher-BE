@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Users = require('../../data/models/users/usersModel');
+const pwHash = require('../../middleware/pwHash.js')
 
 router.get('/:id', (req, res) => {
     const { id } = req.params;
@@ -21,7 +22,7 @@ router.get('/:id', (req, res) => {
 });
 
 TODO: // How do we make sure that when a Password is update it goes through the pwHash process
-router.put('/:id', (req, res) => {
+router.put('/:id', pwHash, (req, res) => {
    const { id } = req.params;
    const edit = req.body;
    
