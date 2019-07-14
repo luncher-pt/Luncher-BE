@@ -44,13 +44,15 @@ describe('SCHOOLS MODEL', () => {
             const schools = await Schools.getAllSchools();
 
             expect(schools.length).toBe(0);
-            expect(Array.isArray(shools));
+            expect(Array.isArray(schools));
         });
     });
 
     describe('getSchoolById()', () => {
 
         it('should return an array with a single shool', async () => {
+            await Schools.addSchool(mockSchools[0]);
+            
             const school = await Schools.getSchoolById(1);
 
             expect(Array.isArray(school)).toBe(true);
@@ -58,6 +60,8 @@ describe('SCHOOLS MODEL', () => {
         });
 
         it('should return the specified school', async () => {
+            await Schools.addSchool(mockSchools[0]);
+
             const school = await Schools.getSchoolById(1);
 
             expect(school[0].id).toBe(1);
@@ -72,7 +76,7 @@ describe('SCHOOLS MODEL', () => {
 
     describe('addSchool()', () => {
 
-        it('should return 1 if the school is successfully added', async () => {
+        it('should return the id if the school is successfully added', async () => {
             const successfulAdd = await Schools.addSchool(mockSchools[0]);
 
             expect(successfulAdd).toBe(1);
@@ -80,14 +84,14 @@ describe('SCHOOLS MODEL', () => {
 
         it('should add the school to the database', async () => {
             await Schools.addSchool(mockSchools[0]);
-
-            const school = Schools.getSchoolById(1);
-
+            
+            const school = await Schools.getAllSchools();
+          
             expect(school[0].name).toBe('High School');
         });
 
         it('should return an error message if a field is missing', async () => {
-            const failedAdd = Schools.addSchool(mockSchools[1]);
+            const failedAdd = await Schools.addSchool(mockSchools[1]);
 
             expect(failedAdd).toEqual({ error: 'Missing Field' });
         });
@@ -96,9 +100,11 @@ describe('SCHOOLS MODEL', () => {
     describe('editSchool()', () => {
 
         it('should update a school\'s fields', async () => {
+            await Schools.addSchool(mockSchools[0]);
+
             await Schools.editSchool(1, { name: 'Middle School' });
 
-            const school = Schools.getSchoolById(1);
+            const school = await Schools.getSchoolById(1);
 
             expect(school[0].name).toBe('Middle School');
         });
@@ -106,7 +112,7 @@ describe('SCHOOLS MODEL', () => {
         it('should return an error message if no school found', async () => {
             const failedEdit = await Schools.editSchool(10, { name: 'Middle School' });
 
-            expect(failedEdit).toBe({ error: 'No School Found with ID' });
+            expect(failedEdit).toEqual({ error: 'No School Found with ID' });
         });
 
         it('should return an error message if incorrect field is passed', async () => {
@@ -119,11 +125,13 @@ describe('SCHOOLS MODEL', () => {
     describe('deleteSchool()', () => {
         
         it('should remove a school from the database', async () => {
+            await Schools.addSchool(mockSchools[0]);
+
             await Schools.deleteSchool(1);
 
-            const schools = Schools.getAllSchools();
+            const schools = await Schools.getAllSchools();
 
-            expect(schools[0].id).toBe(2);
+            expect(schools.length).toBe(0);
         });
 
         it('should return an error message if no school found', async () => {

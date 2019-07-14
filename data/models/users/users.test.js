@@ -26,6 +26,8 @@ describe('USERS MODEL', () => {
     describe('getUser()', () => {
 
         it('should return an array containing a single user', async () => {
+            await Users.addUser(mockUsers[0]);
+
             const user = await Users.getUser(1);
 
             expect(Array.isArray(user)).toBe(true);
@@ -33,9 +35,11 @@ describe('USERS MODEL', () => {
         });
 
         it('should return a user with the corresponding id as the parameter', async () => {
-            const user = await Users.getUser(3);
+            await Users.addUser(mockUsers[0])
+            
+            const user = await Users.getUser(1);
 
-            expect(user[0].id).toBe(3);
+            expect(user[0].id).toBe(1);
         });
 
         it('should return an empty array if no users found with id', async () => {
@@ -59,7 +63,12 @@ describe('USERS MODEL', () => {
         it('should add user to database', async () => {
             const succesfulAdd = await Users.addUser(mockUsers[0]);
 
-            expect(succesfulAdd).toBe(1);
+            const userMatch = { ...mockUsers[0] };
+            
+            userMatch.id = 1;
+            userMatch.admin = 1;
+
+            expect(succesfulAdd[0]).toEqual(userMatch);
         });
 
         it('should return an error message if require field is missing', async () => {
@@ -83,7 +92,13 @@ describe('USERS MODEL', () => {
             const succesfulEdit = await Users.editUser(1, { password: 'password1' });
             const editedUser = await Users.getUser(1);
     
-            expect(succesfulEdit).toBe(1);
+            const userMatch = { ...mockUsers[0] };
+            
+            userMatch.id = 1;
+            userMatch.admin = 1;
+            userMatch.password = 'password1';
+
+            expect(succesfulEdit[0]).toEqual(userMatch);
             expect(editedUser[0].password).toBe('password1');
         });
 
@@ -103,11 +118,11 @@ describe('USERS MODEL', () => {
     describe('deleteUser()', () => {
 
         it('should remove the user from the database', async () => {
-            await Users.deleteUser(1);
+            await Users.addUser(mockUsers[0]);
+            
+            const deleted = await Users.deleteUser(1);
 
-            const users = await db('users');
-
-            expect(users[0].id).toBe(2);
+            expect(deleted).toBe(1);
         });
 
         it('should return an error message if no user matches id', async () => {

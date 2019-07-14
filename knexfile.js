@@ -5,7 +5,7 @@ module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './data/db.sqlite3'
+      filename: './data/luncher_DB.sqlite3'
     },
     useNullAsDefault: true,
     migrations: {
