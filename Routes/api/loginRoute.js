@@ -50,9 +50,11 @@ router.post('/', async(req, res) => {
                         },
                         secrets.jwtSecret,
                         {
-                            expiredIn: '1d'
+                            expiresIn: '1d'
                         }
                     )
+
+                    console.log('token', token)
 
                     res.status(200).json({
                         user: user.id,
