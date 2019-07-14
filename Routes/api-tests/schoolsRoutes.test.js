@@ -42,7 +42,7 @@ describe('SCHOOLS ROUTES', () => {
         it('should return all schools in the database', async () => {
             const res = await request(server).get('/schools');
 
-            expect(res.body.length).toBe(5);
+            expect(res.body.length).toBe(0);
         });
     });
 
@@ -61,7 +61,7 @@ describe('SCHOOLS ROUTES', () => {
                                 .post('/schools')
                                 .send(mockSchools[0]);
 
-            exepct(res.status).toBe(201);
+            expect(res.status).toBe(201);
         });
 
         it('should return status 406 if missing a field', async () => {
@@ -88,21 +88,23 @@ describe('SCHOOLS ROUTES', () => {
     describe('GET /schools/:id', () => {
 
         it('should return a single school', async () => {
-            const res = await request(server).get('/schools/1');
+            await db('schools').insert(mockSchools[0]);
 
+            const res = await request(server).get('/schools/1');
+            console.log(res.body);
             expect(res.body.length).toBe(1);
-            expet(Array.isArray(res.body)).toBe(true);
+            expect(Array.isArray(res.body)).toBe(true);
         });
 
         it('should return status 200 if successful', async () => {
             const res = await request(server).get('/schools/1');
-
+         
             expect(res.status).toBe(200);
         });
 
         it('should return status 404 if no school found', async () => {
             const res = await request(server).get('/schools/10');
-
+            console.log(res.body)
             expect(res.status).toBe(404);
         });
     });
