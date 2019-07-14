@@ -21,7 +21,6 @@ router.get('/:id', (req, res) => {
     }
 });
 
-TODO: // How do we make sure that when a Password is update it goes through the pwHash process
 router.put('/:id', pwHash, (req, res) => {
    const { id } = req.params;
    const edit = req.body;
