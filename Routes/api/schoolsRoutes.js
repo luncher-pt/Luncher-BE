@@ -45,4 +45,6 @@ router.get('/:id', (req, res) => {
             });
 });
 
+TODO: // add DELETE route for schools
+
 module.exports = router;
