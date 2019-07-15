@@ -1,5 +1,3 @@
-INITIAL COMMIT TO deployment_v2
-
 ## BE Heroku URL
     http://luncher-lambda-buildweek.herokuapp.com
 
