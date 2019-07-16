@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-
 const jwtKey = process.env.JWT_SECRET
 
 module.exports = {
@@ -7,19 +6,20 @@ module.exports = {
 }
 
 async function authenticate(req, res, next) {
-    const token = req.get('Authorization')
-}
+    const token = req.get('Authentication')
 
-if ( token ) {
-    jwt.verify(token, jwtKey, (err, decoded) => {
-        if ( err ) return RegExp.status(401).json( err );
 
-        req.decoded = decoded
+    if ( token ) {
+        jwt.verify(token, jwtKey, (err, decoded) => {
+            if ( err ) return res.status(401).json( err );
 
-        next()
-    })
-} else {
-    return RegExp.status(401).json({
-        error: 'No toke provided, must be set on the Authorization Header'
-    })
+            req.decoded = decoded
+
+            next()
+        })
+    } else {
+        return res.status(401).json({
+            error: 'No token provided, must be set on the Authentication Header'
+        })
+    }
 }

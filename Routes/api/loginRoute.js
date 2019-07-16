@@ -57,7 +57,7 @@ router.post('/', async(req, res) => {
                     console.log('token', token)
 
                     res.status(200).json({
-                        user: user.id,
+                        id: user.id,
                         token
                     })
 

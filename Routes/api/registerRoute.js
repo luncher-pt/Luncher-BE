@@ -33,11 +33,11 @@ const express = require('express')
             "donations": 0
         }
     */
-   router.post('/', pwHash, async(req,res) => {
-       console.log('registerRouter POST/')
+    router.post('/', pwHash, async(req,res) => {
+        console.log('registerRouter POST/')
     //    console.log('req.body', req.body)
 
-       DB_KNEX("users")
+    DB_KNEX("users")
         .insert(req.body)
         .then( results => {
             console.log('results ', results )
@@ -46,7 +46,7 @@ const express = require('express')
         .catch( err => {
             res.status(422).json( {error: 'Unable to register new user'})
         })
-   })
+})
 // - PUT - //
 // - DEL - //
 
