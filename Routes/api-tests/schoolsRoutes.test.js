@@ -1,7 +1,7 @@
 const request = require('supertest');
 
 const server = require('../../Server/server');
-const db = require('../../data/dbConfig');
+const db = require('../../data/db');
 
 const mockSchools = [
     {
