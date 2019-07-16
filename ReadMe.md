@@ -32,7 +32,7 @@
     donations: 0 **
 }
 
-** NOT required --> Migrations default to 0 if no input
+** NOT required --> default to 0 if no input
 ```
 
 ## User Login
@@ -42,15 +42,34 @@
 
 - Accepted Shape:
 ```
-    {
-        email: "Bill@Billy.com",
-        password: "TacoMan"
-    }
+{
+    email: "Bill@Billy.com",
+    password: "TacoMan"
+}
 ```
 
 ## Individual User Routes
 - URL = http://luncher-lambda-buildweek.herokuapp.com/users/{id}
-- Notes: MUST have JWT passed as Authentication header to access ALL /users/{id} routes
+- Notes: MUST have JWT passed as Authentication header to access ALL `/users/{id}` routes
+
+## School Routes
+- URL = http://luncher-lambda-buildweek.herokuapp.com/schools
+- Notes: MUST have a JWT passed as Authentication header to access ALL `/schools` routes
+
+### Post New School
+- Accepted Shape:
+```
+{
+    name: "The New School",
+    address: "111 School St, Atlantis, 55555",
+    funds_required: 2500,
+    admin_id: 3,
+    funds_donated: 100 **
+}
+** NOT required --> default to 0 if no input
+```
+
+
 
 
 
