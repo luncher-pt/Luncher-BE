@@ -9,7 +9,7 @@
     "test": "cross-env DB_CONNECT=testing jest --watchAll --verbose"
   },
   "jest": {
-    "testEnvironmnet": "node"
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.18.3",
     "morgan": "^1.9.1",
+    "pg": "^7.11.0",
     "sqlite3": "^4.0.9"
   },
   "devDependencies": {

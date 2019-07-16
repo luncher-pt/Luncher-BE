@@ -22,7 +22,7 @@ exports.seed = function(knex) {
           email: 'propane@gmail.com',
           password: 'password',
           admin: true,
-          donations: 15000000000
+          donations: 150000
         },
         {
           name: 'Peter Parker',
