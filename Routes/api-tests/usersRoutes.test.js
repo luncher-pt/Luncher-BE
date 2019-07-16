@@ -59,7 +59,7 @@ describe('USER ROUTES', () => {
 
         it('should return status 404 if ID is missing or incorrect', async () => {
             const res = await request(server)
-                                .put('/useres/100')
+                                .put('/users/100')
                                 .send({
                                     password: 'password23'
                                 });
