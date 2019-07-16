@@ -21,7 +21,7 @@
 # DB Interaction
 ## Register New User
 - URL = http://luncher-lambda-buildweek.herokuapp.com/register
-
+- Notes: A successful registration does NOT return a JWT. The user must still login to generate JWT. 
 - Accepted Shape:
 ```
 {
@@ -49,8 +49,8 @@
 ```
 
 ## Individual User Routes
-- URL = - URL = http://luncher-lambda-buildweek.herokuapp.com/users/{id}
-- Notes: MUST have jwt passed as Authentication header to access ALL /users/{id} routes
+- URL = http://luncher-lambda-buildweek.herokuapp.com/users/{id}
+- Notes: MUST have JWT passed as Authentication header to access ALL /users/{id} routes
 
 
 

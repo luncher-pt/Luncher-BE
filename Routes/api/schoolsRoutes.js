@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const Schools = require('../../data/models/schools/schoolsModel');
 
-router.get('/', (req, res) => {
-    Schools.getAllSchools()
+const { authenticate } = require('../../auth/authentication.js')
+
+router.get('/', authenticate, async (req, res) => {
+    await Schools.getAllSchools()
             .then(schools => {
                 res.status(200).json(schools);
             })
@@ -11,8 +13,8 @@ router.get('/', (req, res) => {
             });
 });
 
-router.post('/', (req, res) => {
-    Schools.addSchool(req.body)
+router.post('/', authenticate, async (req, res) => {
+    await Schools.addSchool(req.body)
             .then(school => {
                 if(school.error) {
                     res.status(406).json({ error: 'Missing Field' });
@@ -29,10 +31,10 @@ router.post('/', (req, res) => {
             });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', authenticate, async (req, res) => {
     const { id } = req.params;
 
-    Schools.getSchoolById(id)
+    await Schools.getSchoolById(id)
             .then(school => {
                 if(school.error) {
                     res.status(404).json({ error: 'No School Found'});
