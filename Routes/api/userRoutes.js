@@ -14,7 +14,17 @@ router.get('/:id', authenticate, async (req, res) => {
     } else {
         Users.getUser(id)
                 .then(user => {
-                    user.length ? res.status(200).json(user)
+                    // console.log('user', user)
+                    const returnObject = {
+                        id: user[0].id,
+                        name: user[0].name,
+                        email: user[0].email,
+                        donations: user[0].donations,
+                        admin: user[0].admin
+                    }
+                    // console.log('returnObject', returnObject)
+
+                    user.length ? res.status(200).json(returnObject)
                                 : res.status(404).json({
                                     error: 'No User Found With ID'
                                 });
