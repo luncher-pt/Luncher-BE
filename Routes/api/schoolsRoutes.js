@@ -14,13 +14,16 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', authenticate, async (req, res) => {
-    await Schools.addSchool(req.body)
+
+    console.log('req.body', req.body)
+
+
+    Schools.addSchool(req.body)
             .then(school => {
-                if(school.error) {
-                    res.status(406).json({ error: 'Missing Field' });
-                } else {
-                    res.status(201).json(school);
-                }
+
+                console.log('school', school)
+                
+                res.status(201).json(school);
             })
             .catch(err => {
                 if(err.errno === 19 || err.code === 'SQLITE_CONSTRAINT') {

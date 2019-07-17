@@ -39,9 +39,9 @@ const express = require('express')
 
     DB_KNEX("users")
         .insert(req.body)
-        .then( results => {
-            console.log('results ', results )
-            res.status(201).json( results )
+        .then( () => {
+            
+            res.status(201).json( 'Successful Registration')
         })
         .catch( err => {
             res.status(422).json( {error: 'Unable to register new user'})

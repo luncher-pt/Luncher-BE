@@ -20,6 +20,10 @@ const getSchoolById = async id => {
 }
 
 const addSchool = async school => {
+    console.log(Object.keys(schoolTemplate).length)
+    console.log(Object.keys(school).length)
+
+
     if(Object.keys(schoolTemplate).length !== Object.keys(school).length) {
         return { error: 'Missing Field' }
     }
