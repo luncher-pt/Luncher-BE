@@ -18,14 +18,16 @@ router.post('/', authenticate, async (req, res) => {
     console.log('req.body', req.body)
 
 
-    Schools.addSchool(req.body)
+    await Schools.addSchool(req.body)
             .then(school => {
-
+                console.log('inside THEN')
                 console.log('school', school)
                 
                 res.status(201).json(school);
             })
             .catch(err => {
+                console.log('inside CATCH')
+
                 if(err.errno === 19 || err.code === 'SQLITE_CONSTRAINT') {
                     res.status(400).json({ error: err, message: 'Duplicate Entry' });
                 } else {
