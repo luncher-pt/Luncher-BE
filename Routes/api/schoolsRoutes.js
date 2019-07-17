@@ -3,7 +3,7 @@ const Schools = require('../../data/models/schools/schoolsModel');
 
 const { authenticate } = require('../../auth/authentication.js')
 
-router.get('/', authenticate, async (req, res) => {
+router.get('/', async (req, res) => {
     await Schools.getAllSchools()
             .then(schools => {
                 res.status(200).json(schools);
@@ -31,7 +31,7 @@ router.post('/', authenticate, async (req, res) => {
             });
 });
 
-router.get('/:id', authenticate, async (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
     await Schools.getSchoolById(id)
