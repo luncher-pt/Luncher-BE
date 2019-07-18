@@ -54,7 +54,42 @@ router.get('/:id', async (req, res) => {
             });
 });
 
-TODO: // add DELETE route for schools
+TODO: 
+// add DELETE route for schools
+router.delete('/:id', authenticate, async (req, res) => {
+    console.log('schoolsRouter delete/')
+   const { id } = req.params;
+   
+   await Schools.deleteSchool(id)
+                .then(result => {
+                    console.log('del result', result);
+                    res.status(200).json(result);
+                })
+                .catch(err => {
+                    res.status(500).json(err);
+                });
+});
+
+
 // add PUT route for schools
+router.put('/:id', authenticate, async(req,res) => {
+    console.log('schoolsRouter put/')
+    
+    const changes = req.body
+    const { id } = req.params
+
+    console.log('changes, id', changes, id)
+
+    await Schools.editSchool(id, changes)
+        .then( result => {
+            console.log('result', result )
+            res.status(201).json( result )
+        })
+        .catch( err => {
+            res.status(500).json(err);
+        })
+})
+
+
 
 module.exports = router;
