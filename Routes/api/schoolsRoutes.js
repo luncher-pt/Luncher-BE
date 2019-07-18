@@ -27,10 +27,12 @@ router.post('/', authenticate, async (req, res) => {
             })
             .catch(err => {
                 console.log('inside CATCH')
+                console.log('err 1', err); 
 
                 if(err.errno === 19 || err.code === 'SQLITE_CONSTRAINT') {
                     res.status(400).json({ error: err, message: 'Duplicate Entry' });
                 } else {
+                    console.log('err', err) 
                     res.status(500).json(err);
                 }
             });
@@ -53,5 +55,6 @@ router.get('/:id', async (req, res) => {
 });
 
 TODO: // add DELETE route for schools
+// add PUT route for schools
 
 module.exports = router;

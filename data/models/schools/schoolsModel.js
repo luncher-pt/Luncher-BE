@@ -29,6 +29,7 @@ const addSchool = async school => {
     }
 
     const [ id ] = await db('schools').insert(school);
+    console.log('id', id)
 
     return id;
 }
