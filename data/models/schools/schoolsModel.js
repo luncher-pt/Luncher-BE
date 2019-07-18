@@ -28,8 +28,8 @@ const addSchool = async school => {
         return { error: 'Missing Field' }
     }
 
-    const id = await db('schools').insert(school); //I was tryng to pull id from array, 
-                                                  //I dont think its getting an array (iterable)
+    const id = await db('schools').insert(school, ['id', 'name']);
+                                   
     console.log('id', id)
 
     return id;
