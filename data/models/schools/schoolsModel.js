@@ -28,7 +28,7 @@ const addSchool = async school => {
         return { error: 'Missing Field' }
     }
 
-    const id = await db('schools').insert(school, ['id', 'name']);
+    const id = await db('schools').insert(school, ['id', 'name'])[0]; //Awesome sauce
                                    
     console.log('id', id)
 
