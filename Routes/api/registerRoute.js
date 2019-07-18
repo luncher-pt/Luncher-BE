@@ -35,12 +35,10 @@ const express = require('express')
     */
     router.post('/', pwHash, async(req,res) => {
         console.log('registerRouter POST/')
-    //    console.log('req.body', req.body)
 
     DB_KNEX("users")
         .insert(req.body)
         .then( () => {
-            
             res.status(201).json( 'Successful Registration')
         })
         .catch( err => {

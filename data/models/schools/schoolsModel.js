@@ -15,22 +15,17 @@ const getAllSchools = async () => {
 const getSchoolById = async id => {
     const school = await db('schools').where({ id });
 
-    return school[0] === undefined ? { error: 'No School Found' }
-                                   : school;
+    return school[0] === undefined ? 
+        { error: 'No School Found' }
+        : school;
 }
 
 const addSchool = async school => {
-    console.log(Object.keys(schoolTemplate).length)
-    console.log(Object.keys(school).length)
-
-
     if(Object.keys(schoolTemplate).length !== Object.keys(school).length) {
         return { error: 'Missing Field' }
     }
 
-    const id = await db('schools').insert(school, ['id', 'name']); //Awesome sauce
-
-    console.log('id', id)
+    const id = await db('schools').insert(school, ['id', 'name']);
 
     return id;
 }
